@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Desafio Spring H2
+  description: 'Documento awagger para o desafio propostoem spring usando H2.'
+  version: 1.0.0.0
+  
+paths:
+  /numbers:
+    post:
+      tags:
+        - Numbers
+      summary: Insert a sum of two numbers.
+      operationId: InsertSum
+      requestBody:
+        description: The two numbers json object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Numbers'
+        required: true
+      responses:
+        201:
+          description: Numbers was successfully added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumResponse'
+        400:
+          description: Bad Request - Check the request body
+        500:
+          description: Internal Server Error
+    get:
+      tags:
+       - Numbers
+      summary: Get the sum results
+      operationId: GetSums
+      responses:
+        200:
+          description: Results successfully obtained
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sums'
+        404:
+          description: Results not found
+
+components:
+  schemas:
+    Numbers:
+      type: object
+      description: The numbers object.
+      required:
+        - firstNumber
+        - secondNumber
+      properties:
+        fisrtNumber:
+          type: number
+          description: The first number attribute
+        secondNumber:
+          type: number
+          description: The second number attribute
+    SumResponse:
+      type: object
+      description: The sum response object.
+      properties:
+        description:
+          type: string
+          description: The response description attribute
+        result:
+          type: number
+          description: The response number attribute
+    Sum:
+      description: The array of numbers
+      allOf:
+        - $ref: '#/components/schemas/Numbers'
+        - type: object
+          properties:
+            result:
+              description: The sum of the two numbers attribute
+              type: number
+    Sums:
+      description: The array of sums on database.
+      type: array
+      items:
+        $ref: '#/components/schemas/Sum'
