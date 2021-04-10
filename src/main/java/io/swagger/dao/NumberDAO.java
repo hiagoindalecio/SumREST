@@ -14,5 +14,6 @@ public class NumberDAO {
 	@Autowired
 	public NumberDAO (DataSource dataSource) {
 		this.jdbc = new JdbcTemplate(dataSource);
+		
 	}
 }
