@@ -20,11 +20,27 @@ import javax.validation.constraints.*;
 
 public class Sum extends Numbers  {
   @JsonProperty("result")
-  private BigDecimal result = null;
+  private Double result = null;
 
-  public Sum result(BigDecimal result) {
+  public Sum result(Double result) {
     this.result = result;
     return this;
+  }
+  
+  public static Sum build(Double first, Double second, Double result) {
+	  Sum sum = new Sum(null);
+	  sum.setFirstNumber(first);
+	  sum.setSecondNumber(second);
+	  sum.setResult(result);
+	  return sum;
+  }
+  
+  public Sum (Numbers numbers) {
+	if(this != null) {
+	  this.setFirstNumber(numbers.getFirstNumber());
+	  this.setSecondNumber(numbers.getSecondNumber());
+	  this.setResult(numbers.getFirstNumber() + numbers.getSecondNumber());
+	}
   }
 
   /**
@@ -34,11 +50,11 @@ public class Sum extends Numbers  {
   @Schema(description = "The sum of the two numbers attribute")
   
     @Valid
-    public BigDecimal getResult() {
+    public Double getResult() {
     return result;
   }
 
-  public void setResult(BigDecimal result) {
+  public void setResult(Double result) {
     this.result = result;
   }
 

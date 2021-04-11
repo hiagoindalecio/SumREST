@@ -18,14 +18,14 @@ import javax.validation.constraints.*;
 
 
 public class Numbers   {
-  @JsonProperty("fisrtNumber")
-  private BigDecimal fisrtNumber = null;
+  @JsonProperty("firstNumber")
+  private Double firstNumber = null;
 
   @JsonProperty("secondNumber")
-  private BigDecimal secondNumber = null;
+  private Double secondNumber = null;
 
-  public Numbers fisrtNumber(BigDecimal fisrtNumber) {
-    this.fisrtNumber = fisrtNumber;
+  public Numbers firstNumber(Double firstNumber) {
+    this.firstNumber = firstNumber;
     return this;
   }
 
@@ -36,15 +36,15 @@ public class Numbers   {
   @Schema(description = "The first number attribute")
   
     @Valid
-    public BigDecimal getFisrtNumber() {
-    return fisrtNumber;
+    public Double getFirstNumber() {
+    return firstNumber;
   }
 
-  public void setFisrtNumber(BigDecimal fisrtNumber) {
-    this.fisrtNumber = fisrtNumber;
+  public void setFirstNumber(Double fisrtNumber) {
+    this.firstNumber = fisrtNumber;
   }
 
-  public Numbers secondNumber(BigDecimal secondNumber) {
+  public Numbers secondNumber(Double secondNumber) {
     this.secondNumber = secondNumber;
     return this;
   }
@@ -57,11 +57,11 @@ public class Numbers   {
       @NotNull
 
     @Valid
-    public BigDecimal getSecondNumber() {
+    public Double getSecondNumber() {
     return secondNumber;
   }
 
-  public void setSecondNumber(BigDecimal secondNumber) {
+  public void setSecondNumber(Double secondNumber) {
     this.secondNumber = secondNumber;
   }
 
@@ -75,13 +75,13 @@ public class Numbers   {
       return false;
     }
     Numbers numbers = (Numbers) o;
-    return Objects.equals(this.fisrtNumber, numbers.fisrtNumber) &&
+    return Objects.equals(this.firstNumber, numbers.firstNumber) &&
         Objects.equals(this.secondNumber, numbers.secondNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fisrtNumber, secondNumber);
+    return Objects.hash(firstNumber, secondNumber);
   }
 
   @Override
@@ -89,7 +89,7 @@ public class Numbers   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Numbers {\n");
     
-    sb.append("    fisrtNumber: ").append(toIndentedString(fisrtNumber)).append("\n");
+    sb.append("    fisrtNumber: ").append(toIndentedString(firstNumber)).append("\n");
     sb.append("    secondNumber: ").append(toIndentedString(secondNumber)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -2,12 +2,9 @@ package io.swagger.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.math.BigDecimal;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * The sum response object.
@@ -18,11 +15,17 @@ import javax.validation.constraints.*;
 
 
 public class SumResponse   {
+	
+  public SumResponse(String description, Double result) {
+    this.setDescription(description);
+    this.setResult(result);
+  }
+	
   @JsonProperty("description")
   private String description = null;
 
   @JsonProperty("result")
-  private BigDecimal result = null;
+  private Double result = null;
 
   public SumResponse description(String description) {
     this.description = description;
@@ -43,7 +46,7 @@ public class SumResponse   {
     this.description = description;
   }
 
-  public SumResponse result(BigDecimal result) {
+  public SumResponse result(Double result) {
     this.result = result;
     return this;
   }
@@ -55,11 +58,11 @@ public class SumResponse   {
   @Schema(description = "The response number attribute")
   
     @Valid
-    public BigDecimal getResult() {
+    public Double getResult() {
     return result;
   }
 
-  public void setResult(BigDecimal result) {
+  public void setResult(Double result) {
     this.result = result;
   }
 
