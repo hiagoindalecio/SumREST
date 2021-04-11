@@ -40,7 +40,7 @@ public class NumbersApiController implements NumbersApi {
     	log.info("NumbersApiController.insert() - Entering...");
     	SumResponse resp = numberService.InsertSum(body);
     	log.info("NumbersApiController.insert() - Completed");
-    	return new ResponseEntity<>(resp,HttpStatus.OK);
+    	return new ResponseEntity<>(resp,HttpStatus.CREATED);
     }
 
 }

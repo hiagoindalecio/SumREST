@@ -31,7 +31,12 @@ public class NumberDAO implements INumberDAO {
 
 	@Override
 	public List<Sum> getNumbers(Double min, Double max) {
-		List<Sum> ret = jdbc.query("SELECT * FROM sums WHERE result BETWEEN " + min + " AND " + max, new SumRowMapper());
+		List<Sum> ret;
+		if(min != null && max != null) {
+			ret = jdbc.query("SELECT * FROM sums WHERE result BETWEEN " + min + " AND " + max, new SumRowMapper());
+		} else {
+			ret = jdbc.query("SELECT * FROM sums", new SumRowMapper());
+		}
 		return ret;
 	}
 }

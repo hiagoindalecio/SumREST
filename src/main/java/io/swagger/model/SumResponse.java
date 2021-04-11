@@ -50,7 +50,7 @@ public class SumResponse   {
     this.result = result;
     return this;
   }
-
+  
   /**
    * The response number attribute
    * @return result
