@@ -33,6 +33,20 @@ paths:
       tags:
        - Numbers
       summary: Get the sum results
+      parameters:
+        - in: query
+          name: min
+          schema:
+            type: number
+          required: false
+          description: Numeric minimum result parameter.
+
+        - in: query
+          name: max
+          schema:
+            type: number
+          required: false
+          description: Numeric maximum result parameter.
       operationId: GetSums
       responses:
         200:

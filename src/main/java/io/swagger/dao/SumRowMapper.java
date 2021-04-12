@@ -10,11 +10,18 @@ import io.swagger.model.Sum;
 
 public class SumRowMapper implements RowMapper<Sum>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public Sum mapRow(ResultSet rs, int rowNum) throws SQLException {
-		return Sum.build(rs.getDouble("firstNumber"),
-				         rs.getDouble("secondNumber"),
-				         rs.getDouble("result"));
+		return new Sum.Builder(
+				rs.getDouble("first_value"),
+				rs.getDouble("second_value"),
+				rs.getDouble("result"))
+				.build();
 	}
 
 }

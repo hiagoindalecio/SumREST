@@ -21,6 +21,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public interface NumbersApi {
     @RequestMapping(value = "/numbers",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Sum>> getSums(@Parameter(in = ParameterIn.DEFAULT, description = "Min and max filters", required=true, schema=@Schema()) @Valid @RequestBody Double min, Double max);
+    ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max);
 
 
     @Operation(summary = "Insert a sum of two numbers.", description = "", tags={ "Numbers" })

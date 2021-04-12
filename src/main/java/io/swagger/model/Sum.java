@@ -17,7 +17,6 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-04-08T21:52:52.495Z[GMT]")
 
-
 public class Sum extends Numbers  {
   @JsonProperty("result")
   private Double result = null;
@@ -27,20 +26,19 @@ public class Sum extends Numbers  {
     return this;
   }
   
-  public static Sum build(Double first, Double second, Double result) {
-	  Sum sum = new Sum(null);
-	  sum.setFirstNumber(first);
-	  sum.setSecondNumber(second);
-	  sum.setResult(result);
-	  return sum;
-  }
-  
-  public Sum (Numbers numbers) {
+  public Sum (Numbers numbers, Double result) {
 	if(this != null) {
 	  this.setFirstNumber(numbers.getFirstNumber());
 	  this.setSecondNumber(numbers.getSecondNumber());
-	  this.setResult(numbers.getFirstNumber() + numbers.getSecondNumber());
+	  this.setResult(result);
 	}
+  }
+  
+  public Sum CalcResult () {
+    if(this != null) {
+	  this.setResult(this.getFirstNumber() + this.getSecondNumber());
+	}
+    return this;
   }
 
   /**
@@ -96,5 +94,25 @@ public class Sum extends Numbers  {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+  
+  public static class Builder {
+	  
+	private final Double firstNumber;
+	private final Double secondNumber;
+	private final Double result;
+	
+	public Builder(Double first, Double sec, Double res) {
+	  this.firstNumber = first;
+	  this.secondNumber = sec;
+	  this.result = res;
+	}
+	
+	public Sum build() {
+		Numbers num = new Numbers();
+		num.setFirstNumber(firstNumber);
+		num.setSecondNumber(secondNumber);
+		return new Sum(num, this.result);
+	}
   }
 }

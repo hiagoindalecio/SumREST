@@ -14,7 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -29,13 +33,16 @@ public class NumbersApiController implements NumbersApi {
     @Autowired
     NumberService numberService;
     
-    public ResponseEntity<List<Sum>> getSums(@Parameter(in = ParameterIn.DEFAULT, description = "Min and max filters", required=true, schema=@Schema()) @Valid @RequestBody Double min, Double max) {
+    @GetMapping("/sums")
+    @ResponseBody
+    public ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max) {
     	log.info("NumbersApiController.getSums() - Entering...");
     	List<Sum> list = numberService.getSums(min, max);
     	log.info("NumbersApiController.getSums() - Completed");
     	return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    @PostMapping("/sums")
     public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) {
     	log.info("NumbersApiController.insert() - Entering...");
     	SumResponse resp = numberService.InsertSum(body);

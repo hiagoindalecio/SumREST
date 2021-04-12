@@ -22,8 +22,8 @@ public class NumberService {
 	}
 	
 	public SumResponse InsertSum(Numbers numbers) {
-		Sum sum = new Sum(numbers);
-		dao.insert(sum);
+		Sum sum = new Sum(numbers, null);
+		dao.insert(sum.CalcResult());
 		SumResponse resp = new SumResponse("The sum between " + sum.getFirstNumber() + " and " + sum.getSecondNumber() + " results in: " + sum.getResult(), sum.getResult());
 		return resp;
 	}
