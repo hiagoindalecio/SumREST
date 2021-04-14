@@ -35,8 +35,7 @@ public class NumbersApiController implements NumbersApi {
     NumberService numberService;
     
     @GetMapping("/sums")
-    @ResponseBody
-    public ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max) {
+    public ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max) throws Exception {
     	log.info("NumbersApiController.getSums() - Entering...");
     	List<Sum> list = numberService.getSums(min, max);
     	log.info("NumbersApiController.getSums() - Completed");
@@ -45,10 +44,19 @@ public class NumbersApiController implements NumbersApi {
 
     @PostMapping("/sums")
     public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) {
+    	SumResponse resp = null;
+    	HttpStatus status = HttpStatus.CREATED;
     	log.info("NumbersApiController.insert() - Entering...");
-    	SumResponse resp = numberService.InsertSum(body);
+    	try {
+    		resp = numberService.InsertSum(body);
+    	} catch (Exception e) {
+    		status = HttpStatus.INTERNAL_SERVER_ERROR;
+    		e.printStackTrace();
+			System.out.println("NumbersApiController.InsertSum() - Exception: " + e.getMessage());
+    	}
+    	
     	log.info("NumbersApiController.insert() - Completed");
-    	return new ResponseEntity<>(resp,HttpStatus.CREATED);
+    	return new ResponseEntity<>(resp,status);
     }
     
 

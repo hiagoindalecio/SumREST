@@ -1,4 +1,4 @@
-package io.swagger;
+package io.swagger.database;
 
 import javax.sql.DataSource;
 

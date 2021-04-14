@@ -26,19 +26,16 @@ public class Sum extends Numbers  {
     return this;
   }
   
+  public Sum (Numbers numbers) {
+	  this.setFirstNumber(numbers.getFirstNumber());
+	  this.setSecondNumber(numbers.getSecondNumber());
+	  this.setResult(this.getFirstNumber() + this.getSecondNumber());
+  }
+  
   public Sum (Numbers numbers, Double result) {
-	if(this != null) {
 	  this.setFirstNumber(numbers.getFirstNumber());
 	  this.setSecondNumber(numbers.getSecondNumber());
 	  this.setResult(result);
-	}
-  }
-  
-  public Sum CalcResult () {
-    if(this != null) {
-	  this.setResult(this.getFirstNumber() + this.getSecondNumber());
-	}
-    return this;
   }
 
   /**

@@ -1,4 +1,4 @@
-package io.swagger.dao;
+package io.swagger.database;
 
 import javax.sql.DataSource;
 
@@ -21,13 +21,18 @@ public class InitializeDataTable {
 		 */
 		this.jdbc.execute("DROP TABLE IF EXISTS sums");
 		this.jdbc.execute("CREATE TABLE IF NOT EXISTS sums(" +
-		//        "id INT AUTO_INCREMENT PRIMARY KEY," +
 		        "first_value FLOAT NOT NULL," +
 		        "second_value FLOAT NOT NULL," +
 		        "result FLOAT NOT NULL" +
 		        ")");
-		//this.jdbc.update("INSERT INTO sums(first_value, second_value, result) VALUES"
-		//		+ "(2, 2, 4)");
+		
+		//Populating for tests
+		this.jdbc.update("INSERT INTO sums(first_value, second_value, result) VALUES"
+				+ "(2, 2, 4)");
+		this.jdbc.update("INSERT INTO sums(first_value, second_value, result) VALUES"
+				+ "(5, 5, 10)");
+		this.jdbc.update("INSERT INTO sums(first_value, second_value, result) VALUES"
+				+ "(6, 5, 11)");
 	}
 
 }

@@ -9,14 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import io.swagger.controller.NumbersApiController;
-import io.swagger.exception.NumberException;
-import io.swagger.exception.NumberException.NumberEnum;
+import io.swagger.model.NumberEnum;
 import io.swagger.model.Sum;
+import io.swagger.model.SumRowMapper;
 
 @Component
 public class NumberDAO implements INumberDAO {
@@ -41,11 +40,18 @@ public class NumberDAO implements INumberDAO {
 		} catch (Exception ex) {
 			log.error("Error - An exception has ocurred: " + ex.getMessage());
 			ex.printStackTrace();
+			if (ex instanceof DataAccessException) {
+				 throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
+			} else if (ex instanceof NullPointerException) {
+				throw new Exception(NumberEnum.NULL_POINTER.toString());
+			}
 		}
 	}
 
 	@Override
 	public List<Sum> getNumbers(Double min, Double max) throws Exception {
+		
+		log.info("Initializing numberdao.getNumbers()");
 		List<Sum> ret = new ArrayList<>();
 		try {
 			if(min != null && max != null) {
@@ -61,12 +67,14 @@ public class NumberDAO implements INumberDAO {
 			log.error("Error - An exception has ocurred: " + ex.getMessage());
 			ex.printStackTrace();
 			if (ex instanceof DataAccessException) {
-				 throw new NumberException(NumberEnum.DATA_ACCESS_FAILURE, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+				 throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
+			} else if (ex instanceof NullPointerException) {
+				throw new Exception(NumberEnum.NULL_POINTER.toString());
 			}
 		}
 		if(ret.size() == 0) {
-			throw new NumberException(NumberEnum.RESULT_NOT_FOUND_ON_QUERY, "Nothing has found.", HttpStatus.NOT_FOUND);
-		}
+			throw new Exception(NumberEnum.RESULT_NOT_FOUND_ON_QUERY.toString());
+		} 
 		return ret;
 	}
 }

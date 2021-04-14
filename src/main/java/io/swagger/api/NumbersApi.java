@@ -38,7 +38,7 @@ public interface NumbersApi {
     @RequestMapping(value = "/numbers",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max);
+    ResponseEntity<List<Sum>> getSums(@RequestParam(value = "min", required = false) Double min, @RequestParam(value = "max", required = false) Double max) throws Exception;
 
 
     @Operation(summary = "Insert a sum of two numbers.", description = "", tags={ "Numbers" })
@@ -52,7 +52,7 @@ public interface NumbersApi {
         produces = { "application/json" }, 
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body);
+    ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) throws Exception;
 
 }
 

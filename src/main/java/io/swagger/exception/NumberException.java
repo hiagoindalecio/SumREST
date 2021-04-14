@@ -1,11 +1,10 @@
 package io.swagger.exception;
 
 import org.springframework.http.HttpStatus;
-import java.lang.Exception;
 
-public class NumberException extends Exception {
+import io.swagger.model.NumberEnum;
 
-	private static final long serialVersionUID = -2908714035211214719L;
+public class NumberException {
 	
 	private String description;
 	private NumberEnum cause;
@@ -16,22 +15,17 @@ public class NumberException extends Exception {
 		this.description = description;
 		this.status = status;
 	}
-	
-	public enum NumberEnum {
-		BAD_QUERY_PARAMS("BAD_QUERY_PARAMS"),
-		NULL_POINTER("NULL_POINTER"),
-		RESULT_NOT_FOUND_ON_QUERY("RESULT_NOT_FOUND_ON_QUERY"),
-		DATA_ACCESS_FAILURE("DATA_ACCESS_FAILURE");
 
-		private final String value;
-		
-		NumberEnum(String currentValue) {
-		   this.value = currentValue;
-		}
-		
-		public String getValue() {
-		   return value;
-		}
+	public String getDescription() {
+		return description;
+	}
+
+	public NumberEnum getCause() {
+		return cause;
+	}
+	
+	public HttpStatus getStatus() {
+		return this.status;
 	}
 	
 	
