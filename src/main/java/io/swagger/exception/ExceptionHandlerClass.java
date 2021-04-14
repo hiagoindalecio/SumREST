@@ -48,6 +48,10 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler  {
 				ex = new NumberException(NumberEnum.NULL_POINTER, "Some object was not instantiated", HttpStatus.INTERNAL_SERVER_ERROR);
 				status = HttpStatus.INTERNAL_SERVER_ERROR;
 				break;
+			default:
+				ex = new NumberException(NumberEnum.UNKNOWN, "Unknown error", HttpStatus.INTERNAL_SERVER_ERROR);
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+				break;
 		}
 		
 		ret.put("response", ex);

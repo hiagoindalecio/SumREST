@@ -57,6 +57,10 @@ paths:
                 $ref: '#/components/schemas/Sums'
         404:
           description: Results not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NumberException'
 
 components:
   schemas:
@@ -97,3 +101,20 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Sum'
+    NumberException:
+      description: Exception numbers not found.
+      properties:
+        description:
+          type: string
+          description: The failure description
+        cause:
+          type: string
+          description: NumberEnum value
+        status:
+          type: string
+          description: HttpStatus value
+    NumberEnum:
+      description: Enum for return codes
+      properties:
+        value:
+          type: string
