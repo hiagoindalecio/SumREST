@@ -12,7 +12,6 @@ import io.swagger.model.Numbers;
 import io.swagger.model.Sum;
 import io.swagger.model.SumResponse;
 import io.swagger.dao.NumberDAO;
-import io.swagger.exception.NumberException;
 
 @Service
 public class NumberService {

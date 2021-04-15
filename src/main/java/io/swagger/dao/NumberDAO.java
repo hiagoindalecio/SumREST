@@ -64,6 +64,7 @@ public class NumberDAO implements INumberDAO {
 				ret = jdbc.query("SELECT * FROM sums", new SumRowMapper());
 			}
 		} catch (Exception ex) {
+			System.out.println("Caiu na exception.");
 			log.error("Error - An exception has ocurred: " + ex.getMessage());
 			ex.printStackTrace();
 			if (ex instanceof DataAccessException) {

@@ -43,9 +43,7 @@ public class NumberServiceTest {
 		
 		//Sending wrong data
 		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(null, null), null);
-		SumResponse sumResp = serviceImpl.InsertSum(insertCase.getNumbers());
-		//4.0 + 4.0 -> The result should be 8.0
-		assertEquals(insertCase.getExpectedResult(), sumResp.getResult(), 0.0001);
+		serviceImpl.InsertSum(insertCase.getNumbers());
 		
 	}
 	
