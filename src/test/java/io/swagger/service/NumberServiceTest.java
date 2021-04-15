@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import io.swagger.generatortestcases.GetSumsTestCase;
+import io.swagger.generatortestcases.InsertSumTestCase;
 import io.swagger.model.Numbers;
 import io.swagger.model.Sum;
 import io.swagger.model.SumResponse;
@@ -27,36 +29,55 @@ public class NumberServiceTest {
 	
 	@Test
 	public void InsertSum() throws Exception {
-		Numbers num = new Numbers();
-		num.setFirstNumber(4.0);
-		num.setSecondNumber(4.0);
-		SumResponse sumResp = serviceImpl.InsertSum(num);
+		
+		//Sending data normally
+		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(4.0, 4.0), 8.0);
+		SumResponse sumResp = serviceImpl.InsertSum(insertCase.getNumbers());
 		//4.0 + 4.0 -> The result should be 8.0
-		assertEquals(8.0d, sumResp.getResult(), 0.0001);
+		assertEquals(insertCase.getExpectedResult(), sumResp.getResult(), 0.0001);
+
 	}
+	
+	@Test(expected = Exception.class)
+	public void InsertSumNullPointer() throws Exception {
+		
+		//Sending wrong data
+		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(null, null), null);
+		SumResponse sumResp = serviceImpl.InsertSum(insertCase.getNumbers());
+		//4.0 + 4.0 -> The result should be 8.0
+		assertEquals(insertCase.getExpectedResult(), sumResp.getResult(), 0.0001);
+		
+	}
+	
+	//TO-DO: Função que cai em Exception de DataAccessException
 	
 	@Test
 	public void getSums() throws Exception {
 		
+		List<Sum> sumsList = null;
+		
+		GetSumsTestCase testCase = new GetSumsTestCase(4.0, 4.0, 4.0);
+		
 		//Testing min and max
-		List<Sum> sumsList = serviceImpl.getSums(4.0, 4.0);
+		sumsList = serviceImpl.getSums(testCase.getMin(), testCase.getMax());
 		
 		for(Sum sum : sumsList) {
-			assertEquals(4.0d, sum.getResult(), 0.0001);
+			assertEquals(sum.getResult(), testCase.getExpectedResult());
 		}
 		
 		//Testing only min
-		sumsList = serviceImpl.getSums(4.0, null);
+		sumsList = serviceImpl.getSums(testCase.getMin(), null);
 		
 		for(Sum sum : sumsList) {
-			assertTrue(sum.getResult() >= 4);
+			assertTrue(sum.getResult() >= testCase.getMin());
 		}
 		
 		//Testing only max
-		sumsList = serviceImpl.getSums(null, 10.0);
+		sumsList = serviceImpl.getSums(null, testCase.getMax());
 		
 		for(Sum sum : sumsList) {
-			assertTrue(sum.getResult() <= 10.0);
+			assertTrue(sum.getResult() <= testCase.getMax());
 		}
+
 	}
 }

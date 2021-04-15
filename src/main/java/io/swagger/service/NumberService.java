@@ -31,6 +31,7 @@ public class NumberService {
 	public SumResponse InsertSum(Numbers numbers) throws Exception {
 		
 		SumResponse resp = null;
+		
 		try {
 			Sum sum = new Sum(numbers);
 			dao.insert(sum);
@@ -41,6 +42,7 @@ public class NumberService {
 			if (e instanceof DataAccessException) {
 				 throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
 			} else if (e instanceof NullPointerException) {
+				System.out.println("Caiu NullPointer");
 				throw new Exception(NumberEnum.NULL_POINTER.toString());
 			}
 		}

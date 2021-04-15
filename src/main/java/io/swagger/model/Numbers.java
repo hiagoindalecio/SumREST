@@ -63,6 +63,13 @@ public class Numbers   {
     this.secondNumber = secondNumber;
   }
 
+  public Numbers(Double first, Double second) {
+	  this.firstNumber = first;
+	  this.secondNumber = second;
+  }
+  
+  public Numbers() {
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
