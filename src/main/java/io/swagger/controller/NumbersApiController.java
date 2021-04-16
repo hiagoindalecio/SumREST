@@ -1,6 +1,7 @@
 package io.swagger.controller;
 
 import io.swagger.api.NumbersApi;
+import io.swagger.model.NumberEnum;
 import io.swagger.model.Numbers;
 import io.swagger.model.Sum;
 import io.swagger.model.SumResponse;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,14 +45,22 @@ public class NumbersApiController implements NumbersApi {
     }
 
     @PostMapping("/sums")
-    public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) {
+    public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) throws Exception {
     	SumResponse resp = null;
     	HttpStatus status = HttpStatus.CREATED;
+    	System.out.println("Aqui2");
     	log.info("NumbersApiController.insert() - Entering...");
     	try {
     		resp = numberService.InsertSum(body);
     	} catch (Exception e) {
-    		status = HttpStatus.INTERNAL_SERVER_ERROR;
+    		System.out.println("CAIU na exception: " + e.getCause().toString());
+    		if (e instanceof NumberFormatException) {
+    			System.out.println("NumberFormat exception");
+				 throw new Exception(NumberEnum.BAD_REQUEST.toString());
+			} else if (e instanceof NullPointerException) {
+				System.out.println("NullPointerException");
+				throw new Exception(NumberEnum.NULL_POINTER.toString());
+			}
     		e.printStackTrace();
 			System.out.println("NumbersApiController.InsertSum() - Exception: " + e.getMessage());
     	}

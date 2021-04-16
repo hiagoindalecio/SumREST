@@ -14,7 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import io.swagger.generatortestcases.GetSumsTestCase;
+import io.swagger.generatortestcases.InsertSumTestCase;
+import io.swagger.model.Numbers;
 import io.swagger.model.Sum;
+import io.swagger.model.SumResponse;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -50,5 +53,22 @@ public class NumbersApiControllerTest {
 		for(Sum sum : sumsList.getBody()) {
 			assertTrue(sum.getResult() <= testCase.getMax());
 		}
+	}
+	
+	@Test
+	public void insertSum() throws Exception {
+		
+		ResponseEntity<SumResponse> sumResp;
+		
+		sumResp = controllerImpl.insertSum(new Numbers(2.0, 2.0));
+		assertTrue(sumResp.getBody().getResult() == 4.0);
+	}
+	
+	@Test(expected = Exception.class)
+	public void insertSumNumberFormatException() throws Exception {
+		
+		System.out.println("Aqui");
+		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(null, 1.0), null);
+		controllerImpl.insertSum(insertCase.getNumbers());
 	}
 }
