@@ -14,7 +14,4 @@ public enum NumberEnum {
 	   this.value = currentValue;
 	}
 	
-	public String getValue() {
-	   return value;
-	}
 }
