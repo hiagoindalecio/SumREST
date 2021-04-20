@@ -20,7 +20,11 @@ import io.swagger.model.SumRowMapper;
 @Component
 public class NumberDAO implements INumberDAO {
 	
-	JdbcTemplate jdbc;
+	private JdbcTemplate jdbc;
+	
+	public void setJdbc(JdbcTemplate jdbcT) {
+		this.jdbc = jdbcT;
+	}
 	
 	private static final Logger log = LoggerFactory.getLogger(NumbersApiController.class);
 	
@@ -69,8 +73,6 @@ public class NumberDAO implements INumberDAO {
 			ex.printStackTrace();
 			if (ex instanceof DataAccessException) {
 				 throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
-			} else if (ex instanceof NullPointerException) {
-				throw new Exception(NumberEnum.NULL_POINTER.toString());
 			}
 		}
 		if(ret.size() == 0) {

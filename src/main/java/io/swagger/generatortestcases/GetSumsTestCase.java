@@ -7,24 +7,12 @@ public class GetSumsTestCase {
 		return this.min;
 	}
 	
-	public void setMin(Double min) {
-		this.min = min;
-	}
-	
 	public Double getMax() {
 		return this.max;
 	}
 	
-	public void setMax(Double max) {
-		this.max = max;
-	}
-	
 	public Double getExpectedResult() {
 		return this.expectedResult;
-	}
-	
-	public void setExpectedResult(Double expectedResult) {
-		this.expectedResult = expectedResult;
 	}
 	
 	public GetSumsTestCase(Double min, Double max, Double expected) {

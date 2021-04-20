@@ -15,15 +15,7 @@ import io.swagger.model.NumberEnum;
 public class ExceptionHandlerClass extends ResponseEntityExceptionHandler  {
 	
 	@ExceptionHandler({ Exception.class })
-	public ResponseEntity<NumberException> handleNotFoundException (Exception ex) throws Exception {
-		Map<String, Object> ret = getNumberException(ex.getMessage());
-		NumberException numEx = (NumberException) ret.get("response");
-		HttpStatus stat = (HttpStatus) ret.get("status");
-		return new ResponseEntity<>(numEx, stat);
-	}
-	
-	@ExceptionHandler({ NullPointerException.class })
-	public ResponseEntity<NumberException> handleNumberFormatException (Exception ex) throws Exception {
+	public ResponseEntity<NumberException> handleNumberException (Exception ex) throws Exception {
 		Map<String, Object> ret = getNumberException(ex.getMessage());
 		NumberException numEx = (NumberException) ret.get("response");
 		HttpStatus stat = (HttpStatus) ret.get("status");

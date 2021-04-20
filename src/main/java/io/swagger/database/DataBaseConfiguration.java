@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.context.annotation.Configuration;
 
 @ComponentScan("com.journaldev.spring")
 @PropertySource("classpath:application.properties")
@@ -24,6 +23,7 @@ public class DataBaseConfiguration {
 	
 	@Bean
 	DataSource dataSource() {
+		System.out.println("Caiu DataBaseConfiguration.dataSource()");
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setUrl(environment.getProperty(URL));
 		driverManagerDataSource.setUsername(environment.getProperty(USER));

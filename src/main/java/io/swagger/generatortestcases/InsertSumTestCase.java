@@ -10,16 +10,8 @@ public class InsertSumTestCase {
 		return numbers;
 	}
 
-	public void setNumbers(Numbers numbers) {
-		this.numbers = numbers;
-	}
-
 	public Double getExpectedResult() {
 		return expectedResult;
-	}
-
-	public void setExpectedResult(Double expectedResult) {
-		this.expectedResult = expectedResult;
 	}
 	
 	public InsertSumTestCase(Numbers numbers, Double expected) {

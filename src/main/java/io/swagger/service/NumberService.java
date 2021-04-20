@@ -37,9 +37,9 @@ public class NumberService {
 			resp = new SumResponse("The sum between " + sum.getFirstNumber() + " and " + sum.getSecondNumber() + " results in: " + sum.getResult(), sum.getResult());
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("NumberService.InsertSum() - Exception: " + e.getMessage());
-			if (e instanceof DataAccessException) {
-				 throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
+			if (e.getMessage() == "DATA_ACCESS_FAILURE") {
+				System.out.println("Caiu DataAccessException");
+				throw new Exception(NumberEnum.DATA_ACCESS_FAILURE.toString());
 			} else if (e instanceof NullPointerException) {
 				System.out.println("Caiu NullPointer");
 				throw new Exception(NumberEnum.NULL_POINTER.toString());

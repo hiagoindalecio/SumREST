@@ -8,10 +8,6 @@ public class InsertTestCase {
 	public Sum getSum() {
 		return sum;
 	}
-
-	public void setSum(Sum sum) {
-		this.sum = sum;
-	}
 	
 	public InsertTestCase(Sum sum) {
 		this.sum = sum;
