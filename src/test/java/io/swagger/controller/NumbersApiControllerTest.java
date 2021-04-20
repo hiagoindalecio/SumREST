@@ -64,10 +64,9 @@ public class NumbersApiControllerTest {
 		assertTrue(sumResp.getBody().getResult() == 4.0);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = Exception.class)//Ta errado tem que entrar no NullPointer (Ta estourando aqui)
 	public void insertSumNumberFormatException() throws Exception {
 		
-		System.out.println("Aqui");
 		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(null, 1.0), null);
 		controllerImpl.insertSum(insertCase.getNumbers());
 	}

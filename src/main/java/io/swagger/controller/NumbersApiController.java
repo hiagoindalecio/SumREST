@@ -48,7 +48,6 @@ public class NumbersApiController implements NumbersApi {
     public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) throws Exception {
     	SumResponse resp = null;
     	HttpStatus status = HttpStatus.CREATED;
-    	System.out.println("Aqui2");
     	log.info("NumbersApiController.insert() - Entering...");
     	try {
     		resp = numberService.InsertSum(body);
