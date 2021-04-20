@@ -46,24 +46,11 @@ public class NumbersApiController implements NumbersApi {
 
     @PostMapping("/sums")
     public ResponseEntity<SumResponse> insertSum(@Parameter(in = ParameterIn.DEFAULT, description = "The two numbers json object", required=true, schema=@Schema()) @Valid @RequestBody Numbers body) throws Exception {
+    	System.out.println("Entrou");
     	SumResponse resp = null;
     	HttpStatus status = HttpStatus.CREATED;
     	log.info("NumbersApiController.insert() - Entering...");
-    	try {
-    		resp = numberService.InsertSum(body);
-    	} catch (Exception e) {
-    		System.out.println("CAIU na exception: " + e.getCause().toString());
-    		if (e instanceof NumberFormatException) {
-    			System.out.println("NumberFormat exception");
-				 throw new Exception(NumberEnum.BAD_REQUEST.toString());
-			} else if (e instanceof NullPointerException) {
-				System.out.println("NullPointerException");
-				throw new Exception(NumberEnum.NULL_POINTER.toString());
-			}
-    		e.printStackTrace();
-			System.out.println("NumbersApiController.InsertSum() - Exception: " + e.getMessage());
-    	}
-    	
+    	resp = numberService.InsertSum(body);
     	log.info("NumbersApiController.insert() - Completed");
     	return new ResponseEntity<>(resp,status);
     }

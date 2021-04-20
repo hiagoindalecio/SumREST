@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +28,9 @@ public class NumbersApiControllerTest {
 
 	@Autowired
 	private NumbersApiController controllerImpl;
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 	
 	@Test
 	public void getSums() throws Exception {
@@ -64,10 +69,11 @@ public class NumbersApiControllerTest {
 		assertTrue(sumResp.getBody().getResult() == 4.0);
 	}
 	
-	@Test(expected = Exception.class)//Ta errado tem que entrar no NullPointer (Ta estourando aqui)
+	@Test(expected= Exception.class)//Ta errado tem que entrar no NullPointer (Ta estourando aqui)
 	public void insertSumNumberFormatException() throws Exception {
 		
-		InsertSumTestCase insertCase = new InsertSumTestCase(new Numbers(null, 1.0), null);
+		Numbers num = null;
+		InsertSumTestCase insertCase = new InsertSumTestCase(num, 0.0);
 		controllerImpl.insertSum(insertCase.getNumbers());
 	}
 }
